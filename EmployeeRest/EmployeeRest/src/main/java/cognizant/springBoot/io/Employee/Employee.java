@@ -1,10 +1,12 @@
 package cognizant.springBoot.io.Employee;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Employee {
 	
+	@Id
 	public int id;
 	public String name;
 	public int salary;

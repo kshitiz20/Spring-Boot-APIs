@@ -23,6 +23,10 @@ public class EmployeeController {
 	public List<Employee> getAllEmployees(){
 		return employeeService.getAllEmployees();
 	}
+	@GetMapping("/employees/{id}")
+	public Employee getEmployee(@PathVariable int id) {
+		return employeeService.getEmployee(id);
+	}
 	
 	@PostMapping("/employees")
 	public String addEmployee(@RequestBody Employee e) {

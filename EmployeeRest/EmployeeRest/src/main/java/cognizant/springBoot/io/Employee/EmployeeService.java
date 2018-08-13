@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 
 
 
@@ -19,47 +22,45 @@ List<Employee> list= new ArrayList<>(Arrays.asList(
 			
 		));
 	
+	@Autowired
+	EmployeeRepo er;
 	
 	public List<Employee> getAllEmployees() {
 		
-			return list;
+		
+		List<Employee> list= new ArrayList<>();
+		er.findAll()
+		.forEach(list::add);
+		return list;
+			//return list;
 	}
 
 
 	public void addEmployee(Employee e) {
 		// TODO Auto-generated method stub
 		
-		list.add(e);
+		er.save(e);
 		
 	}
 
 
 	public String updateEmployee(Employee e, int id) {
 		// TODO Auto-generated method stub
-		String s;
-		int rid=0;
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getId()==id) {
-				rid=list.get(i).getId();
-				list.set(i, e);
-				
-				break;
-				
-			}
-		}
-		s= "The Employee with id "+rid+" has been replaced by Employee with id "+e.getId();
+	er.save(e);
+		String s= "The Employee with id  has been replaced by Employee with id "+e.getId();
 		return s;
 	}
 
 
 	public String deleteEmployee(int id) {
-		// TODO Auto-generated method stub
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getId()==id) {
-				list.remove(i);
-			}
-		}
+		//  Auto-generated method stub
+		er.deleteById(id);
 		return "Employee withh id "+id+" has been removed from the company";
+	}
+
+
+	public Employee getEmployee(int id) {
+		return er.findById(id).get();
 	}
 	
 	
